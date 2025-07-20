@@ -1,6 +1,17 @@
 // src/preload.js
 const { contextBridge, ipcRenderer } = require('electron');
-const { t, setLanguage, getLanguage } = require('./i18n/i18n');
+// Try to handle the module loading more carefully
+let i18nModule = {};
+try {
+  i18nModule = require('./i18n/i18n');
+} catch (e) {
+  console.warn('Failed to load i18n module:', e);
+  // Provide fallback functions
+  i18nModule.t = (key) => key;
+  i18nModule.setLanguage = () => {};
+  i18nModule.getLanguage = () => 'pt';
+}
+const { t, setLanguage, getLanguage } = i18nModule;
 
 contextBridge.exposeInMainWorld('i18n', {
   t,

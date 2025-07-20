@@ -101,6 +101,8 @@
     "accountNotLoggedIn": "Conta: Não Conectado",
     "invisibilityOn": "Invisibilidade Ativada",
     "local": "{{provider}} (Local)",
+    "usingPicklesKey": "Usando Chave da Pickle",
+    "enterApiKeyPlaceholder": "Digite a Chave de API {{provider}}",
     "ollamaRunning": "✓ Ollama está em execução",
     "stopOllama": "Parar Serviço Ollama",
     "ollamaInstalledNotRunning": "⚠ Ollama instalado mas não está em execução",

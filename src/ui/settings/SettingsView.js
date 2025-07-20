@@ -1059,10 +1059,10 @@ export class SettingsView extends LitElement {
 
     getMainShortcuts() {
         return [
-            { name: 'Show / Hide', accelerator: this.shortcuts.toggleVisibility },
-            { name: 'Ask Anything', accelerator: this.shortcuts.nextStep },
-            { name: 'Scroll Up Response', accelerator: this.shortcuts.scrollUp },
-            { name: 'Scroll Down Response', accelerator: this.shortcuts.scrollDown },
+            { name: t('settings.showHide'), accelerator: this.shortcuts.toggleVisibility },
+            { name: t('settings.askAnything'), accelerator: this.shortcuts.nextStep },
+            { name: t('settings.scrollUp'), accelerator: this.shortcuts.scrollUp },
+            { name: t('settings.scrollDown'), accelerator: this.shortcuts.scrollDown },
         ];
     }
 
@@ -1211,7 +1211,7 @@ export class SettingsView extends LitElement {
                                         </button>
                                     ` : this.ollamaStatus.installed ? html`
                                         <div style="padding: 8px; background: rgba(255,200,0,0.1); border-radius: 4px; font-size: 11px; color: rgba(255,200,0,0.8);">
-                                            ⚠ Ollama installed but not running
+                                            ${t('settings.ollamaInstalledNotRunning')}
                                         </div>
                                         <button class="settings-button full-width" @click=${() => this.handleSaveKey(id)}>
                                             ${t('settings.startOllama')}
@@ -1235,7 +1235,7 @@ export class SettingsView extends LitElement {
                                     <label>${config.name} (Local STT)</label>
                                     ${this.apiKeys[id] === 'local' ? html`
                                         <div style="padding: 8px; background: rgba(0,255,0,0.1); border-radius: 4px; font-size: 11px; color: rgba(0,255,0,0.8); margin-bottom: 8px;">
-                                            ✓ Whisper is enabled
+                                            ${t('settings.whisperEnabled')}
                                         </div>
                                         <button class="settings-button full-width danger" @click=${() => this.handleClearKey(id)}>
                                             ${t('settings.disableWhisper')}
@@ -1252,9 +1252,9 @@ export class SettingsView extends LitElement {
                         // Regular providers
                         return html`
                         <div class="provider-key-group">
-                            <label for="key-input-${id}">${config.name} API Key</label>
+                            <label for="key-input-${id}">${t('settings.apiKey', { provider: config.name })}</label>
                             <input type="password" id="key-input-${id}"
-                                placeholder=${loggedIn ? "Using Pickle's Key" : `Enter ${config.name} API Key`} 
+                                placeholder=${loggedIn ? t('settings.usingPicklesKey') : t('settings.enterApiKeyPlaceholder', { provider: config.name })} 
                                 .value=${this.apiKeys[id] || ''}
                             >
                             <div class="key-buttons">
@@ -1298,7 +1298,7 @@ export class SettingsView extends LitElement {
                                                     <div class="install-progress-bar" style="width: ${installProgress}%"></div>
                                 </div>
                                             ` : ollamaModel?.installed ? html`
-                                                <span class="model-status installed">✓ Installed</span>
+                                                <span class="model-status installed">${t('settings.installed')}</span>
                                             ` : html`
                                                 <span class="model-status not-installed">Click to install</span>
                                             `}
@@ -1334,7 +1334,7 @@ export class SettingsView extends LitElement {
                                                     <div class="install-progress-bar" style="width: ${installProgress}%"></div>
                                                 </div>
                                             ` : whisperModel?.installed ? html`
-                                                <span class="model-status installed">✓ Installed</span>
+                                                <span class="model-status installed">${t('settings.installed')}</span>
                                             ` : html`
                                                 <span class="model-status not-installed">Not Installed</span>
                                             `}
@@ -1419,23 +1419,23 @@ export class SettingsView extends LitElement {
 
                 <div class="buttons-section">
                     <button class="settings-button full-width" @click=${this.handlePersonalize}>
-                        <span>Personalize / Meeting Notes</span>
+                        <span>${t('settings.personalizeMeetingNotes')}</span>
                     </button>
                     <button class="settings-button full-width" @click=${this.handleToggleAutoUpdate} ?disabled=${this.autoUpdateLoading}>
-                        <span>Automatic Updates: ${this.autoUpdateEnabled ? 'On' : 'Off'}</span>
+                        <span>${this.autoUpdateEnabled ? t('settings.automaticUpdatesOn') : t('settings.automaticUpdatesOff')}</span>
                     </button>
                     
                     <div class="move-buttons">
                         <button class="settings-button half-width" @click=${this.handleMoveLeft}>
-                            <span>← Move</span>
+                            <span>${t('settings.moveLeft')}</span>
                         </button>
                         <button class="settings-button half-width" @click=${this.handleMoveRight}>
-                            <span>Move →</span>
+                            <span>${t('settings.moveRight')}</span>
                         </button>
                     </div>
                     
                     <button class="settings-button full-width" @click=${this.handleToggleInvisibility}>
-                        <span>${this.isContentProtectionOn ? 'Disable Invisibility' : 'Enable Invisibility'}</span>
+                        <span>${this.isContentProtectionOn ? t('settings.disableInvisibility') : t('settings.enableInvisibility')}</span>
                     </button>
                     
                     <div class="bottom-buttons">

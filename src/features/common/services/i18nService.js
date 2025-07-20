@@ -4,7 +4,7 @@ const settingsService = require('../../settings/settingsService');
 // Initialize i18n service with language from settings
 async function initializeLanguage() {
     try {
-        const settings = await settingsService.loadSettings();
+        const settings = await settingsService.getSettings();
         const language = settings?.language || 'pt'; // Default to Portuguese
         
         // Broadcast language to all windows
@@ -42,7 +42,7 @@ ipcMain.handle('i18n:set-language', async (event, lang) => {
 // Get current language
 ipcMain.handle('i18n:get-language', async () => {
     try {
-        const settings = await settingsService.loadSettings();
+        const settings = await settingsService.getSettings();
         return settings?.language || 'pt';
     } catch (error) {
         console.error('Failed to get language:', error);
