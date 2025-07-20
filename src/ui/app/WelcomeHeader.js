@@ -1,4 +1,5 @@
 import { html, css, LitElement } from '../assets/lit-core-2.7.4.min.js';
+import { t } from '../utils/i18nLit.js';
 
 export class WelcomeHeader extends LitElement {
     static styles = css`
@@ -188,28 +189,28 @@ export class WelcomeHeader extends LitElement {
             <div class="container">
                 <button class="close-button" @click=${this.handleClose}>×</button>
                 <div class="header-section">
-                    <div class="title">Welcome to Glass</div>
-                    <div class="subtitle">Choose how to connect your AI model</div>
+                    <div class="title">${t('welcome.title')}</div>
+                    <div class="subtitle">${t('welcome.subtitle')}</div>
                 </div>
                 <div class="option-card">
                     <div class="divider"></div>
                     <div class="option-content">
-                        <div class="option-title">Quick start with default API key</div>
+                        <div class="option-title">${t('welcome.quickStart')}</div>
                         <div class="option-description">
-                            100% free with Pickle's OpenAI key<br/>No personal data collected<br/>Sign up with Google in seconds
+                            ${t('welcome.freeOption')}<br/>${t('welcome.noDataCollected')}<br/>${t('welcome.signUpGoogle')}
                         </div>
                     </div>
                     <button class="action-button" @click=${this.loginCallback}>
-                        <div class="button-text">Open Browser to Log in</div>
+                        <div class="button-text">${t('welcome.openBrowser')}</div>
                         <div class="button-icon"><div class="arrow-icon"></div></div>
                     </button>
                 </div>
                 <div class="option-card">
                     <div class="divider"></div>
                     <div class="option-content">
-                        <div class="option-title">Use Personal API keys</div>
+                        <div class="option-title">${t('welcome.usePersonalKeys')}</div>
                         <div class="option-description">
-                            Costs may apply based on your API usage<br/>No personal data collected<br/>Use your own API keys (OpenAI, Gemini, etc.)
+                            ${t('welcome.costsMayApply')}<br/>${t('welcome.noDataCollected')}<br/>${t('welcome.useOwnKeys')}
                         </div>
                     </div>
                     <button class="action-button" @click=${this.apiKeyCallback}>
@@ -218,8 +219,8 @@ export class WelcomeHeader extends LitElement {
                     </button>
                 </div>
                 <div class="footer">
-                    Glass does not collect your personal data —
-                    <span class="footer-link" @click=${this.openPrivacyPolicy}>See details</span>
+                    ${t('welcome.privacyNote')}
+                    <span class="footer-link" @click=${this.openPrivacyPolicy}>${t('welcome.seeDetails')}</span>
                 </div>
             </div>
         `;

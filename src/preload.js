@@ -1,5 +1,12 @@
 // src/preload.js
 const { contextBridge, ipcRenderer } = require('electron');
+const { t, setLanguage, getLanguage } = require('./i18n/i18n');
+
+contextBridge.exposeInMainWorld('i18n', {
+  t,
+  setLanguage,
+  getLanguage
+});
 
 contextBridge.exposeInMainWorld('api', {
   // Platform information for renderer processes

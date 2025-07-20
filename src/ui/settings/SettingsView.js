@@ -1,4 +1,5 @@
 import { html, css, LitElement } from '../assets/lit-core-2.7.4.min.js';
+import { t } from '../utils/i18nLit.js';
 // import { getOllamaProgressTracker } from '../../features/common/services/localProgressTracker.js'; // 제거됨
 
 export class SettingsView extends LitElement {
@@ -1183,7 +1184,7 @@ export class SettingsView extends LitElement {
                 <div class="settings-container">
                     <div class="loading-state">
                         <div class="loading-spinner"></div>
-                        <span>Loading...</span>
+                        <span>${t('settings.loading')}</span>
                     </div>
                 </div>
             `;
@@ -1206,21 +1207,21 @@ export class SettingsView extends LitElement {
                                             ✓ Ollama is running
                                         </div>
                                         <button class="settings-button full-width danger" @click=${this.handleOllamaShutdown}>
-                                            Stop Ollama Service
+                                            ${t('settings.stopOllama')}
                                         </button>
                                     ` : this.ollamaStatus.installed ? html`
                                         <div style="padding: 8px; background: rgba(255,200,0,0.1); border-radius: 4px; font-size: 11px; color: rgba(255,200,0,0.8);">
                                             ⚠ Ollama installed but not running
                                         </div>
                                         <button class="settings-button full-width" @click=${() => this.handleSaveKey(id)}>
-                                            Start Ollama
+                                            ${t('settings.startOllama')}
                                         </button>
                                     ` : html`
                                         <div style="padding: 8px; background: rgba(255,100,100,0.1); border-radius: 4px; font-size: 11px; color: rgba(255,100,100,0.8);">
                                             ✗ Ollama not installed
                                         </div>
                                         <button class="settings-button full-width" @click=${() => this.handleSaveKey(id)}>
-                                            Install & Setup Ollama
+                                            ${t('settings.installOllama')}
                                         </button>
                                     `}
                                 </div>
@@ -1237,11 +1238,11 @@ export class SettingsView extends LitElement {
                                             ✓ Whisper is enabled
                                         </div>
                                         <button class="settings-button full-width danger" @click=${() => this.handleClearKey(id)}>
-                                            Disable Whisper
+                                            ${t('settings.disableWhisper')}
                                         </button>
                                     ` : html`
                                         <button class="settings-button full-width" @click=${() => this.handleSaveKey(id)}>
-                                            Enable Whisper STT
+                                            ${t('settings.enableWhisper')}
                                         </button>
                                     `}
                                 </div>
@@ -1257,8 +1258,8 @@ export class SettingsView extends LitElement {
                                 .value=${this.apiKeys[id] || ''}
                             >
                             <div class="key-buttons">
-                               <button class="settings-button" @click=${() => this.handleSaveKey(id)} >Save</button>
-                               <button class="settings-button danger" @click=${() => this.handleClearKey(id)} }>Clear</button>
+                               <button class="settings-button" @click=${() => this.handleSaveKey(id)} >${t('settings.save')}</button>
+                               <button class="settings-button danger" @click=${() => this.handleClearKey(id)} }>${t('settings.clear')}</button>
                             </div>
                         </div>
                         `;
@@ -1275,9 +1276,9 @@ export class SettingsView extends LitElement {
         const modelSelectionHTML = html`
             <div class="model-selection-section">
                 <div class="model-select-group">
-                    <label>LLM Model: <strong>${getModelName('llm', this.selectedLlm) || 'Not Set'}</strong></label>
+                    <label>${t('settings.llmModel', { model: getModelName('llm', this.selectedLlm) || t('settings.notSet') })}</label>
                     <button class="settings-button full-width" @click=${() => this.toggleModelList('llm')} ?disabled=${this.saving || this.availableLlmModels.length === 0}>
-                        Change LLM Model
+                        ${t('settings.changeLlmModel')}
                     </button>
                     ${this.isLlmListVisible ? html`
                         <div class="model-list">
@@ -1309,9 +1310,9 @@ export class SettingsView extends LitElement {
                     ` : ''}
                 </div>
                 <div class="model-select-group">
-                    <label>STT Model: <strong>${getModelName('stt', this.selectedStt) || 'Not Set'}</strong></label>
+                    <label>${t('settings.sttModel', { model: getModelName('stt', this.selectedStt) || t('settings.notSet') })}</label>
                     <button class="settings-button full-width" @click=${() => this.toggleModelList('stt')} ?disabled=${this.saving || this.availableSttModels.length === 0}>
-                        Change STT Model
+                        ${t('settings.changeSttModel')}
                     </button>
                     ${this.isSttListVisible ? html`
                         <div class="model-list">
@@ -1351,15 +1352,15 @@ export class SettingsView extends LitElement {
             <div class="settings-container">
                 <div class="header-section">
                     <div>
-                        <h1 class="app-title">Pickle Glass</h1>
+                        <h1 class="app-title">${t('settings.appName')}</h1>
                         <div class="account-info">
                             ${this.firebaseUser
-                                ? html`Account: ${this.firebaseUser.email || 'Logged In'}`
-                                : `Account: Not Logged In`
+                                ? html`${t('settings.account', { email: this.firebaseUser.email || 'Logged In' })}`
+                                : t('settings.accountNotLoggedIn')
                             }
                         </div>
                     </div>
-                    <div class="invisibility-icon ${this.isContentProtectionOn ? 'visible' : ''}" title="Invisibility is On">
+                    <div class="invisibility-icon ${this.isContentProtectionOn ? 'visible' : ''}" title="${t('settings.invisibilityOn')}">
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M9.785 7.41787C8.7 7.41787 7.79 8.19371 7.55667 9.22621C7.0025 8.98704 6.495 9.05121 6.11 9.22037C5.87083 8.18204 4.96083 7.41787 3.88167 7.41787C2.61583 7.41787 1.58333 8.46204 1.58333 9.75121C1.58333 11.0404 2.61583 12.0845 3.88167 12.0845C5.08333 12.0845 6.06333 11.1395 6.15667 9.93787C6.355 9.79787 6.87417 9.53537 7.51 9.94954C7.615 11.1454 8.58333 12.0845 9.785 12.0845C11.0508 12.0845 12.0833 11.0404 12.0833 9.75121C12.0833 8.46204 11.0508 7.41787 9.785 7.41787ZM3.88167 11.4195C2.97167 11.4195 2.2425 10.6729 2.2425 9.75121C2.2425 8.82954 2.9775 8.08287 3.88167 8.08287C4.79167 8.08287 5.52083 8.82954 5.52083 9.75121C5.52083 10.6729 4.79167 11.4195 3.88167 11.4195ZM9.785 11.4195C8.875 11.4195 8.14583 10.6729 8.14583 9.75121C8.14583 8.82954 8.875 8.08287 9.785 8.08287C10.695 8.08287 11.43 8.82954 11.43 9.75121C11.43 10.6729 10.6892 11.4195 9.785 11.4195ZM12.6667 5.95954H1V6.83454H12.6667V5.95954ZM8.8925 1.36871C8.76417 1.08287 8.4375 0.931207 8.12833 1.03037L6.83333 1.46204L5.5325 1.03037L5.50333 1.02454C5.19417 0.93704 4.8675 1.10037 4.75083 1.39787L3.33333 5.08454H10.3333L8.91 1.39787L8.8925 1.36871Z" fill="white"/>
                         </svg>
@@ -1371,7 +1372,7 @@ export class SettingsView extends LitElement {
 
                 <div class="buttons-section" style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 6px; margin-top: 6px;">
                     <button class="settings-button full-width" @click=${this.openShortcutEditor}>
-                        Edit Shortcuts
+                        ${t('settings.editShortcuts')}
                     </button>
                 </div>
 
@@ -1390,7 +1391,7 @@ export class SettingsView extends LitElement {
                 <div class="preset-section">
                     <div class="preset-header">
                         <span class="preset-title">
-                            My Presets
+                            ${t('settings.myPresets')}
                             <span class="preset-count">(${this.presets.filter(p => p.is_default === 0).length})</span>
                         </span>
                         <span class="preset-toggle" @click=${this.togglePresets}>
@@ -1441,17 +1442,17 @@ export class SettingsView extends LitElement {
                         ${this.firebaseUser
                             ? html`
                                 <button class="settings-button half-width danger" @click=${this.handleFirebaseLogout}>
-                                    <span>Logout</span>
+                                    <span>${t('settings.logout')}</span>
                                 </button>
                                 `
                             : html`
                                 <button class="settings-button half-width" @click=${this.handleUsePicklesKey}>
-                                    <span>Login</span>
+                                    <span>${t('settings.login')}</span>
                                 </button>
                                 `
                         }
                         <button class="settings-button half-width danger" @click=${this.handleQuit}>
-                            <span>Quit</span>
+                            <span>${t('settings.quit')}</span>
                         </button>
                     </div>
                 </div>

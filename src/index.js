@@ -28,6 +28,7 @@ const sessionRepository = require('./features/common/repositories/session');
 const modelStateService = require('./features/common/services/modelStateService');
 const featureBridge = require('./bridge/featureBridge');
 const windowBridge = require('./bridge/windowBridge');
+const i18nService = require('./features/common/services/i18nService');
 
 // Global variables
 const eventBridge = new EventEmitter();
@@ -188,6 +189,10 @@ app.whenReady().then(async () => {
     try {
         await databaseInitializer.initialize();
         console.log('>>> [index.js] Database initialized successfully');
+        
+        // Initialize i18n with user's language preference
+        await i18nService.initializeLanguage();
+        console.log('>>> [index.js] i18n initialized successfully');
         
         // Clean up zombie sessions from previous runs first - MOVED TO authService
         // sessionRepository.endAllActiveSessions();

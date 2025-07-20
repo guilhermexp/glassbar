@@ -1,4 +1,5 @@
 import { html, css, LitElement } from '../assets/lit-core-2.7.4.min.js';
+import { t } from '../utils/i18nLit.js';
 
 export class ApiKeyHeader extends LitElement {
     //////// after_modelStateService ////////
@@ -1941,15 +1942,15 @@ export class ApiKeyHeader extends LitElement {
                 <div class="header">
                     <div class="back-button" @click=${this.handleBack}>
                         <i class="arrow-icon-left"></i>
-                        <div class="back-button-text">Back</div>
+                        <div class="back-button-text">${t('apiKey.back')}</div>
                     </div>
-                    <div class="title">Use Personal API keys</div>
+                    <div class="title">${t('apiKey.usePersonalKeys')}</div>
                 </div>
 
                 <!-- LLM Section -->
                 <div class="section">
                     <div class="row">
-                        <div class="label">1. Select LLM Provider</div>
+                        <div class="label">${t('apiKey.selectProvider')}</div>
                         <div class="provider-selector">
                             ${this.providers.llm.map(
                                 p => html`
@@ -1965,7 +1966,7 @@ export class ApiKeyHeader extends LitElement {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="label">2. Enter API Key</div>
+                        <div class="label">${t('apiKey.enterKey')}</div>
                         ${this.llmProvider === 'ollama'
                             ? this._renderOllamaStateUI()
                             : html`
@@ -1990,7 +1991,7 @@ export class ApiKeyHeader extends LitElement {
                 <!-- STT Section -->
                 <div class="section">
                     <div class="row">
-                        <div class="label">3. Select STT Provider</div>
+                        <div class="label">${t('apiKey.selectSttProvider')}</div>
                         <div class="provider-selector">
                             ${this.providers.stt.map(
                                 p => html`
@@ -2062,7 +2063,7 @@ export class ApiKeyHeader extends LitElement {
                               ? `Installing ${this.installingModel}...`
                               : Object.keys(this.whisperInstallingModels).length > 0
                                 ? `Downloading...`
-                                : 'Confirm'}
+                                : t('apiKey.confirm')}
                     </button>
                 </div>
 
