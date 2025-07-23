@@ -117,6 +117,8 @@ export class PermissionHeader extends LitElement {
             text-align: center;
             margin-bottom: 12px;
             line-height: 1.3;
+            word-wrap: break-word;
+            white-space: normal;
         }
 
         .permission-status {
@@ -135,6 +137,8 @@ export class PermissionHeader extends LitElement {
             color: rgba(255, 255, 255, 0.8);
             font-size: 11px;
             font-weight: 400;
+            word-wrap: break-word;
+            white-space: normal;
         }
 
         .permission-item.granted {
